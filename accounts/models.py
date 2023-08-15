@@ -67,9 +67,19 @@ class allergy(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='allergy')
     name = models.CharField(verbose_name='allergy_name',max_length=15)
 
+
 class medicine(models.Model):
+    order = models.IntegerField(verbose_name='number',default=0,null=True)
+    name = models.TextField(verbose_name='medicine_name',null=True,default='')
+    classification = models.TextField(verbose_name='medi_classification',null=True,default='')
+    Ingredients_amount = models.TextField(verbose_name='Ingredients_amount',default='',null=True)
+    efficacy = models.TextField(verbose_name='efficacy',null=True)
+    infomation = models.TextField(verbose_name='infomation',default='',null=True)
+    warning = models.TextField(verbose_name='warning',null=True,default='')
+    storage = models.TextField(verbose_name='storage',null=True,default='')
+    doping = models.TextField(verbose_name='doping',null=True,default='')
+    usage = models.TextField(verbose_name='usage',null=True,default='')
     user = models.ForeignKey (User, on_delete=models.CASCADE, null=True, blank=True, related_name='medicine') 
-    name = models.CharField(verbose_name='medicine_name',max_length=15)
 
     disease = models.ForeignKey(
         to = 'disease',

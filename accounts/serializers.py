@@ -11,6 +11,7 @@ class UserModelSerializer(ModelSerializer):
         model = User
         fields = '__all__'
 
+
 class UserSignupSerializer(ModelSerializer):
     email = EmailField(
         required = True,
@@ -44,6 +45,12 @@ class MedicineSerializer(ModelSerializer):
         model = medicine
         fields ='__all__'
 
+    def create(self, validated_data):
+        medi = medicine.objects.create(**validated_data)
+        medi.user = self.context['request'].user
+        medi.save()
+        return medi
+
 
 
 class DiseaseMediSerializer(ModelSerializer):
@@ -51,7 +58,7 @@ class DiseaseMediSerializer(ModelSerializer):
 
     def get_medicines(self,obj):
         medi = obj.disease_medi.all()
-        return MedicineSerializer(instance=medi, many=True).data
+        return MedicineSerializer(instance=medi, many=True).data['name']
 
     class Meta:
         model = disease
@@ -64,7 +71,7 @@ class AllergyMediSerializer(ModelSerializer):
 
     def get_medicines(self,obj):
         medi = obj.allergy_medi.all()
-        return MedicineSerializer(instance=medi,many=True).data
+        return MedicineSerializer(instance=medi,many=True).data['name']
     
     class Meta:
         model = allergy 

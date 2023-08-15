@@ -52,5 +52,5 @@ class UserMediListView(generics.ListAPIView):
 class UserMediViewSet(ModelViewSet):
 
     serializer_class = MedicineSerializer
-    queryset = medicine
+    queryset = medicine.objects.all()
     
