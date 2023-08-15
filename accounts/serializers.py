@@ -42,7 +42,7 @@ class UserSignupSerializer(ModelSerializer):
 class MedicineSerializer(ModelSerializer):
     class Meta:
         model = medicine
-        fields =['name']
+        fields ='__all__'
 
 
 
